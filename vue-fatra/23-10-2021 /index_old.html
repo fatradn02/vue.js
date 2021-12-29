@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Vue 3 | Pertemuan 1</title>
+</head>
+<body>
+    <div id='app'>
+        {{ test }}   <!-- Menampilkan Hasil dari data test-->
+        <br>
+        <button @click="changeTest"> 
+            change test  <!-- Menampilkan Hasil Ketika Mengklik dari Function changeTest -->
+        </button>
+        <br>
+        <p @click="addCounter">
+            {{ counter }}  <!-- Menampilkan Hasil Function addCounter-->
+        </p>
+    </div>
+    
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const app = {
+            data() {
+                return{
+                    test : 'hello world!',
+                    counter: 10
+                }
+            },
+            methods: {
+                changeTest(){
+                    this.test = 'hai dunia!'
+                },
+                addCounter(){
+                    this.counter++
+                }
+            },
+        }
+
+        Vue.createApp(app).mount('#app')
+    </script>
+</body>
+</html>

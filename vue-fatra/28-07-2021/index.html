@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+      
+      .no-scrollbar::-webkit-scrollbar{
+        display: none;
+      }
+      
+      .no-scrollbar{
+        -ms-overflow-style: none;
+        scrollbar-width:none;
+      }
+    
+    </style>
+    <title>Vos</title>
+</head>
+<body class="bg-pink-50 h-screen">
+  <div class="flex justify-center ">
+    <div id="app">
+        <main class="flex h-screen w-screen p-16 space-x-8">
+            <section class="relative bg-white rounded-2xl shadow-xl p-4 h-full flex-1 overflow-y-scroll no-scrollbar">
+              <!-- categories -->
+              <!-- <button class="bg-yellow-600 text-white px-4 py-3 rounded-full">All Items</button> -->
+              <div class=" text-xs flex space-x-8">
+                <button  
+                    v-for="category in categories"
+                    :key="category.id"
+                    :class="selectedCategory === category.id && 'bg-yellow-600 text-white px-4 py-3 rounded-full'"                
+                    @click="setSelectedCategory(category.id)"
+                 >
+                  {{ category.name }}
+                </button>
+               
+              </div>
+              
+              <!-- products -->
+              <div class="grid grid-cols-4 gap-6 mt-8 w-full ">
+                  
+                <button  
+                      v-for="product in filteredProducts"
+                      :key="products.id"
+                      @click="addItem(product)"
+                      :class="isActive(product.id) && 'ring-4 ring-yellow-300'"
+                      class="flex flex-col justify-between bg-white rounded-xl shadow-lg overflow-hidden text-center">
+                                          
+                    <div>
+                    <img :src="product.image"                  
+                    class="w-full h-24 rounded-xl shadow object-cover"  
+                    >
+                    <p 
+                      class="mt-2 font-semibold text-sm text-gray-700"
+                    
+                    >
+                          {{ product.name }}
+                    </p>
+                  </div>
+                  <p 
+                    class="mt-2 mb-4 font-bold text-xl "
+                  >
+                  <font class="text-yellow-600 text-base">
+                    Rp&nbsp;
+                  </font>
+                  {{ product.price }}
+                  </p> 
+                </button>
+               
+          
+               </div>
+
+               <!-- Putih Putih -->
+               <div class="sticky -bottom-4 w-full -mx-4 h-24 bg-gradient-to-t from-white "></div>
+            </section>
+            
+            <aside class="bg-white rounded-2xl shadow-xl p-4 h-full w-1/3 flex flex-col">
+              <!-- aside header -->
+              <div class="flex justify-between items-center">
+                <h2 class="font-semibold text-xl">Current Order</h2>
+                <button 
+                    class="bg-red-100 text-red-500 py-4 px-8 text-xs rounded-xl"
+                    @click="clearCart()">
+                    Clear All
+
+                </button>
+              </div>
+
+              <!-- list order -->
+                <ul class="overflow-y-scroll no-scrollbar flex-1 relative">
+                  <li 
+                    v-for="item in cartItems"
+                    :key="item.id"
+                    class="flex justify-between items-center mt-6"
+                  >
+  
+                    <div class="flex items-center space-x-2 w-5/12">
+                      <img 
+                          :src="item.image"  
+                           alt=""
+                           class="w-10 h-10 rounded-xl shadow"
+                      >
+                      <p class="text-xs">
+                      {{ item.name }}  
+                      </p>
+                    </div>
+                    
+                    <div class="flex items-center">
+                      <button class="h-10 w-10 rounded-xl bg-red-100 text-red-500 text-2xl font-light"
+                      @click="reduceQuantity(item)(item)"> 
+                        - 
+                      </button>
+                      <p class="w-10 text-center text-sm font-semibold">
+                        {{ item.quantity }}
+                      </p>
+                      <button class="h-10 w-10 rounded-xl bg-red-100 text-red-500 text-2xl font-light"
+                      @click="addQuantity(item)"> 
+                        +
+                       </button>
+                    </div>
+                    
+                    <p class="flex-1 font-semibold text-sm text-right">Rp {{ item.subtotal }}</p>
+                  </li>
+                  <div class="sticky bottom-0 w-full  h-24 bg-gradient-to-t from-white to-transparent "></div>
+                </ul>
+          
+
+              <!-- pay button -->
+              <button class="bg-yellow-600 rounded-xl py-4 w-full text-sm text-white font-semibold">Pay: Rp {{ total }}</button>
+            </aside>
+        </main>
+    </div>
+  </div>
+  <script src="script.js"> 
+
+  </script>
+</body>
+</html>

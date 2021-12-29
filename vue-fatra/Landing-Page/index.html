@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Vue 3 | Pertemuan 1</title>
+</head>
+<body>
+    <div id='app'>
+        {{ test }}   <!-- Menampilkan Hasil dari data test-->
+        <br>
+        <button @click="changeTest"> 
+            change test  <!-- Menampilkan Hasil Ketika Mengklik dari Function changeTest -->
+        </button>
+        <br>
+        <p @click="addCounter">
+            {{ counter }}  <!-- Menampilkan Hasil Function addCounter-->
+        </p>
+    </div>
+    
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        
+        const { ref } = Vue // buat variable yang diambil dari vue
+
+        const app = {
+            setup() {
+
+                const test = ref('hello world!')
+                // Ini Akan Mengubah Nilai Variable,Walaupun di ubah
+                function changeTest() {
+                    test.value = 'hai dunia'
+                }
+                
+                const counter = ref(0)
+                function addCounter(){
+                    counter.value++
+                }
+                
+                return { 
+                        test,changeTest,
+                        counter,addCounter 
+                    }
+            },
+        }
+        Vue.createApp(app).mount('#app')
+    
+    </script>
+</body>
+</html>

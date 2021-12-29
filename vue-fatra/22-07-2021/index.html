@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+</head>
+<body class="bg-gradient-to-r from-red-400 to-red-200">
+   
+
+    <div id="app">
+        <h1 class="text-xl text-center my-8 text-white">
+            Todo List 
+        </h1>
+
+        <main class="bg-white rounded-lg shadow-lg w-1/2 mx-auto p-8">
+            <header class="flex justify-around items-center border-b-2 border-gray-100 pb-6 mb-6">
+                
+                <p class="text-2xl">
+                    {{ totalTask }} Task
+                </p>
+                <p>
+                     {{  remainingTask }}Remaining
+                </p>
+    
+            </header>
+    
+            <section>
+                
+                <div 
+                    v-for="(todo, index) in todos"
+
+                    
+                    class="flex justify-between items-center mb-6">
+                    
+                    <label :class="todo.isFinish ? 'line-through' : null">
+                        <input 
+                        type="checkbox"
+                        v-model="todo.isFinish"
+                        >
+                        {{ index }}. {{ todo.name }}
+                        
+                    </label>
+    
+                    <button 
+                        @click="deleteTodo(index)"
+                        class="border border-gray-500 rounded-full text-gray-500 text-xs px-4 py-1">
+                        Delete
+                    </button>
+                
+                </div>
+            
+               
+            
+            </section>
+            
+            <footer class="flex items-center space-x-4">
+                <input 
+                v-model="newTodo"
+                type="text" 
+                class="border border-gray-200 rounded-full text-gray-500 text-xs px-4 py-2 flex-grow outline-none"
+                placeholder="Add Todo..."
+                
+                >
+                
+                <button 
+                    @click="addTodo()"
+                    class="border border-gray-300 rounded-full text-gray-500 text-xs px-4 py-2"
+                >
+                Add
+                </button>
+            </footer>
+            {{ newTodo }}
+        </main>
+    </div>
+  
+    <script src="./script.js">
+
+    </script>
+</body>
+</html>
